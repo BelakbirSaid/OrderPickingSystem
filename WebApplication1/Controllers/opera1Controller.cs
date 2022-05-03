@@ -10,8 +10,10 @@ using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
-    public class Table_2OPController : ApiController
+    public class opera1Controller : ApiController
     {
+
+
         public HttpResponseMessage Get()
         {
 
@@ -21,9 +23,8 @@ namespace WebApplication1.Controllers
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = @"SELECT * FROM [EmpOptimisation].[dbo].[Table_2OP]";
-                //string sqlQuery1 = "SELECT   U_emp as Emplacement , ItemCode as Réf, OnHand as QtStock from oitw t1 where t1.WhsCode = '01' and t1.U_emp like '" + emplacement + "%'";
-
+                string sqlQuery = @"SELECT * FROM [EmpOptimisation].[dbo].[opera1]";
+                
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
 
 
@@ -36,21 +37,16 @@ namespace WebApplication1.Controllers
                 dataAdapter.Fill(dtbl);
 
 
-                //
                 return Request.CreateResponse(HttpStatusCode.OK, dtbl);
 
             }
 
 
 
-
-
-
-
         }
 
 
-        public string Post(Table_2OP op1)
+        public string Post(opera1 op1)
         {
             try
             {
@@ -61,7 +57,7 @@ namespace WebApplication1.Controllers
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string sqlQuery = @"Insert into [EmpOptimisation].[dbo].[Table_2OP] values ('" + op1.Nu_op + "','" + op1.EmAc + "','" + op1.EmOp + "','" + op1.Quant + "','" + op1.Com+ "','"+op1.EtatRef+"')";
+                    string sqlQuery = @"Insert into [EmpOptimisation].[dbo].[opera1] values ('" + op1.Nu_op + "','" + op1.refe + "','"+op1.refedes+"','" + op1.EmAc + "','" + op1.EmOp + "','" + op1.Quant + "','" + op1.QuantMax + "','"+op1.EtatRef+"')";
                     //string sqlQuery1 = "SELECT   U_emp as Emplacement , ItemCode as Réf, OnHand as QtStock from oitw t1 where t1.WhsCode = '01' and t1.U_emp like '" + emplacement + "%'";
 
                     SqlCommand command = new SqlCommand(sqlQuery, connection);
@@ -92,7 +88,7 @@ namespace WebApplication1.Controllers
 
         //update 
 
-        public string Put(Table_2OP op1)
+        public string Put(opera1 op1)
         {
             try
             {
@@ -103,7 +99,7 @@ namespace WebApplication1.Controllers
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string sqlQuery = @"Update opera set Nu_op = '" + op1.Nu_op + "', EmAc='" +op1.EmAc + "',EmOp='" + op1.Com + "',magasinier='" + op.magasinier + "',EtatOp='" + op.EtatOp + "' where Nu_op ='" + op.Nu_op + "'";
+                    string sqlQuery = @"Update opera set Nu_op = '" + op1.Nu_op + "', refe='" + op1.refe + "',refedes='" + op1.refedes + "',EmAc='" + op1.EmAc + "',EmOp='" + op1.EmOp + "',Quant ='"+op1.Quant+ "',QuantMax = '"+ op1.QuantMax+ "',EtatRef ='"+op1.EtatRef+ "' where  refe='" + op1.refe + "'";
                     //string sqlQuery1 = "SELECT   U_emp as Emplacement , ItemCode as Réf, OnHand as QtStock from oitw t1 where t1.WhsCode = '01' and t1.U_emp like '" + emplacement + "%'";
 
                     SqlCommand command = new SqlCommand(sqlQuery, connection);
@@ -122,12 +118,12 @@ namespace WebApplication1.Controllers
 
                 }
 
-                return "Added Successfully!!";
+                return "updated Successfully!!";
             }
             catch (Exception)
             {
 
-                return "Failed to Add!!";
+                return "Failed to updated!!";
             }
         }
 
@@ -135,7 +131,7 @@ namespace WebApplication1.Controllers
         //delete
 
 
-        public string Delete(Table_2OP op1)
+        public string Delete(opera1 op1)
         {
             try
             {
@@ -146,7 +142,7 @@ namespace WebApplication1.Controllers
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string sqlQuery = @"Delete from [EmpOptimisation].[dbo].[opera]  where Nu_op ='" + op.Nu_op + "'";
+                    string sqlQuery = @"Delete from [EmpOptimisation].[dbo].[opera1]  where refe='" + op1.refe + "'";
                     //string sqlQuery1 = "SELECT   U_emp as Emplacement , ItemCode as Réf, OnHand as QtStock from oitw t1 where t1.WhsCode = '01' and t1.U_emp like '" + emplacement + "%'";
 
                     SqlCommand command = new SqlCommand(sqlQuery, connection);
@@ -173,7 +169,5 @@ namespace WebApplication1.Controllers
                 return "Failed to delete!!";
             }
         }
-
-
     }
 }
