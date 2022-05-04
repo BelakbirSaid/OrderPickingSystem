@@ -16,7 +16,5 @@ namespace WebApplication1.Models
         public string EtatOp { get; set; }
 
 
-
-
     } 
 }
