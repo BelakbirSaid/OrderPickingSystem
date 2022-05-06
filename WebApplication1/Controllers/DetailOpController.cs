@@ -12,8 +12,8 @@ namespace WebApplication1.Controllers
 {
     public class DetailOpController : ApiController
     {
-       
-        public HttpResponseMessage Get(DetailOp detailOp)
+        [Route("api/DetailOp/{id}")]
+        public DataTable Get(string id)
         {
 
             string connectionString = "Server=(localdb)\\MyInstance1;Integrated Security=true; Database = EmpOptimisation;";
@@ -22,7 +22,7 @@ namespace WebApplication1.Controllers
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = @"SELECT * FROM [EmpOptimisation].[dbo].[opera1] WHERE Nu_op LIKE '"+detailOp.Nu_op+"'";
+                string sqlQuery = @"SELECT * FROM [EmpOptimisation].[dbo].[opera1] WHERE Nu_op LIKE '"+id+"'";
                 //change query to create new custom aip services 
 
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
@@ -38,7 +38,7 @@ namespace WebApplication1.Controllers
 
 
                 //
-                return Request.CreateResponse(HttpStatusCode.OK, dtbl);
+                return  dtbl;
 
             }
 
